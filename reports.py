@@ -18,7 +18,7 @@ def decide(file_name, year):
         for line in game_file:
             dates_of_production.append(int(line[date_column]))
 
-        if year in dates_of_production:
+        if int(year) in dates_of_production:
             answer = True
         return answer
 
@@ -31,6 +31,7 @@ def get_latest(file_name):
         date_column = 2
         for line in game_file:
             title_date_list.append((line[title_column], line[date_column]))
+
         latest_date = 0
         date_column = 1
         position_in_file = 0
@@ -65,25 +66,16 @@ def get_line_number_by_title(file_name, title,):
         for line in game_file:
             title_dict[title_position] = line[title_column]
             title_position += 1
-        try:
-            for i in title_dict.keys():
+
+        for i in title_dict.keys():
                 if title.upper() == title_dict[i]. upper():
                     return i
+        try:
+            raise ValueError
         except ValueError:
-            err_str = "This game is not in the file."
-            return err_str
-
-
+            return "ValueError: This game is not in the file."
 def main():
     pass
-    # print(count_games())
-    # year = input("What year woluld You like to check: ")
-    # print(decide("game_stat.txt", year))
-    # print(get_latest())
-    # genre = input("Enter the genre to check how many we have: ")
-    # print(count_by_genre(genre))
-    # title = input("Enter the title of the game to check position in the file: ")
-    # print(get_line_number_by_title(title))
 
 
 main()
