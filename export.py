@@ -7,6 +7,7 @@ def export_report(export_file="report_game_stat.txt"):
         export_list = []
         bonus_export_list = []
         number_of_line = 1
+
         report = """
  _______     ________  _______     ___   _______   _________
 |_   __ \   |_   __  ||_   __ \  .'   `.|_   __ \ |  _   _  |

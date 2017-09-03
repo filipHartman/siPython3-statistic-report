@@ -93,6 +93,7 @@ def sort_abc(file_name):
         game_file = csv.reader(game_stat_file, delimiter="\t")
         title_list = []
         title_column = 0
+
         for line in game_file:
             title_list.append(line[title_column])
         sorted_title_list = bubble_sort(title_list)

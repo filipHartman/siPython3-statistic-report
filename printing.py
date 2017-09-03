@@ -2,6 +2,7 @@ from reports import *
 
 
 def main():
+
     print("Number of games in file: ", count_games("game_stat.txt"), "\n")
 
     year = input("What year woluld You like to check: ")
