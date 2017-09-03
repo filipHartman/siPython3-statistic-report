@@ -14,13 +14,11 @@ def decide(file_name, year):
         game_file = csv.reader(game_stat_file, delimiter="\t")
         dates_of_production = []
         date_column = 2
-        answer = False
         for line in game_file:
             dates_of_production.append(int(line[date_column]))
 
-        if int(year) in dates_of_production:
-            answer = True
-        return answer
+        answer = lambda year: True if int(year) in dates_of_production else False
+        return answer(year)
 
 
 def get_latest(file_name):
@@ -70,10 +68,68 @@ def get_line_number_by_title(file_name, title,):
         for i in title_dict.keys():
                 if title.upper() == title_dict[i]. upper():
                     return i
-        try:
-            raise ValueError
-        except ValueError:
-            return "ValueError: This game is not in the file."
+
+        if title.upper() == "HALF-LIFE 3":
+            raise ValueError("""Congratulations!
+                                You postponed production of Half-Life 3 by 100 years!
+                                Be proude of yourself!""")
+
+        raise ValueError("This game is not in the file.")
+
+
+# Bonus functions
+
+
+def bubble_sort(list_to_sort):
+    for i in range(0, len(list_to_sort) - 1):
+        for j in range(0, len(list_to_sort) - 1 - i):
+            if list_to_sort[j] > list_to_sort[j+1]:
+                list_to_sort[j], list_to_sort[j+1] = list_to_sort[j+1], list_to_sort[j]
+    return list_to_sort
+
+
+def sort_abc(file_name):
+    with open(file_name, "r") as game_stat_file:
+        game_file = csv.reader(game_stat_file, delimiter="\t")
+        title_list = []
+        title_column = 0
+        for line in game_file:
+            title_list.append(line[title_column])
+        sorted_title_list = bubble_sort(title_list)
+        return sorted_title_list
+
+
+def get_genres(file_name):
+    with open(file_name, "r") as game_stat_file:
+        game_file = csv.reader(game_stat_file, delimiter="\t")
+        genre_set = set()
+        genre_column = 3
+        for line in game_file:
+            genre_set.add(line[genre_column])
+        genre_list = sorted(genre_set, key=lambda x: x.upper())
+        return genre_list
+
+
+def when_was_top_sold_fps(file_name):
+    with open(file_name, "r") as game_stat_file:
+        game_file = csv.reader(game_stat_file, delimiter="\t")
+        fps_list = []
+        sold_copies_column = 1
+        date_column = 2
+        genre_column = 3
+        fps = "First-person shooter"
+        for line in game_file:
+            if line[genre_column] == fps:
+                fps_list.append((float(line[sold_copies_column]), line[date_column]))
+
+        if fps_list == []:
+            raise ValueError("There is no first-person shooter game in the file.")
+
+        fps_list.sort(reverse=True)
+        the_best_year_fps = int(fps_list[0][1])
+        return the_best_year_fps
+
+
 def main():
     pass
 
