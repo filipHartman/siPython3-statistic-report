@@ -39,7 +39,8 @@ def export_report(export_file="report_game_stat.txt"):
             report_game_file.write("\n\n\n")
             number_of_line += 1
         report_game_file.write(str(number_of_line) + ". " + str(when_was_top_sold_fps("game_stat.txt")))
-    
+
+
 def main():
     export_report()
 
